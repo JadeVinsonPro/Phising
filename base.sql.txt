@@ -1,0 +1,276 @@
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `TYPE_EAU`
+--
+
+CREATE TABLE TYPE_EAU(
+   Id_Type_Eau INT,
+   Libelle_Type_Eau VARCHAR(50),
+   PRIMARY KEY(Id_Type_Eau)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+
+
+--
+-- Contenu de la table `TYPE_EAU`
+--
+
+INSERT INTO type_eau (Id_Type_Eau, Libelle_Type_Eau) VALUES
+(1, 'Eau Douce'),
+(2, 'Eau Salée');
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `TYPE_PECHE`
+--
+
+CREATE TABLE TYPE_PECHE(
+   Id_Type_Peche INT,
+   Libelle_Type_Peche VARCHAR(50) NOT NULL,
+   Conseil_Type_Peche VARCHAR(50),
+   PRIMARY KEY(Id_Type_Peche)
+);
+
+
+--
+-- Contenu de la table `TYPE_PECHE`
+--
+
+
+INSERT INTO TYPE_Peche (Id_Type_Peche, Libelle_Type_Peche, Conseil_Type_Peche ) VALUES
+(1, A la mouche, Conseil mouche),
+(2, Au coup, conseil au coup),
+
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `BOUTIQUE`
+--
+
+
+CREATE TABLE Boutique(
+   Id_Boutique INT,
+   Nom_Boutique Varchar(50),
+   Adresse_Boutique VARCHAR(50),
+   CP_Boutique VARCHAR(50),
+   Ville_Boutique VARCHAR(50),
+   NumTel_Boutique VARCHAR(50),
+   PRIMARY KEY(Id_Boutique),
+   FOREIGN KEY(Id_Photo) REFERENCES PHOTO(Id_Photo)
+);
+
+
+
+--
+-- Contenu de la table `BOUTIQUE`
+--
+
+INSERT INTO BOUTIQUE (Id_Boutique, Nom_Boutique, Adresse_Boutique, CP_Boutique, Ville_Boutique, NumTel_Boutique) VALUES
+(1, ALCEDO RAMBOUILLET, 18 Rue Pierre Métairie, 78120, Rambouillet, 09 75 83 19 27),
+(2, ALCEDO Malakoff, 18 Rue Arblade, 92240, Rambouillet, 09 75 83 92 20),
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `MATERIEL`
+--
+
+CREATE TABLE MATERIEL(
+   Id_Materiel INT,
+   Libelle varchar(50),
+   PrixMoyen_Materiel DECIMAL(15,2),
+   PRIMARY KEY(Id_Materiel)
+);
+
+--
+-- Contenu de la table `MATERIEL`
+--
+
+INSERT INTO MATERIEL (Id_) VALUES
+(1, Accessoires 1er, 10, Hamecon, 5 ),
+(2, Canne 1,15, 1M50, Souple, Canne pour Carpe, PAS de porte moulinet),
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `ACCESSOIRES`
+--
+CREATE TABLE ACCESOIRES(
+   Id_Materiel INT,
+   Detail_Accessoires VARCHAR(50) NOT NULL,
+   Quantite_Accessoires INT,
+   PRIMARY KEY(Id_Materiel),
+   FOREIGN KEY(Id_Materiel) REFERENCES MATERIEL(Id_Materiel)
+);
+
+--
+-- Contenu de la table `ACCESSOIRES`
+--
+
+INSERT INTO ACCESSOIRES (Id_) VALUES
+(1, Accessoires 1er, 10, Hamecon, 5 ),
+(2, Canne 1,15, 1M50, Souple, Canne pour Carpe, PAS de porte moulinet),
+
+
+CREATE TABLE CANNE(
+   Id_Materiel INT,
+   Taille_Canne DECIMAL(15,2),
+   Resistance_Canne VARCHAR(50),
+   Type_Canne VARCHAR(50),
+   PorteMoulinet_Canne varchar(50),
+   PRIMARY KEY(Id_Materiel),
+   FOREIGN KEY(Id_Materiel) REFERENCES MATERIEL(Id_Materiel)
+)
+
+CREATE TABLE MOULINET(
+   Id_Materiel INT,
+   Hauteur_Moulinet DECIMAL(15,2),
+   Diametre_Moulinet VARCHAR(50),
+   PRIMARY KEY(Id_Materiel),
+   FOREIGN KEY(Id_Materiel) REFERENCES MATERIEL(Id_Materiel)
+);
+
+CREATE TABLE EPUISETTE(
+   Id_Materiel INT,
+   HauteurTige_Epuisette DECIMAL(15,2),
+   Poids_Epuisette DECIMAL(15,2),
+   VolumeFilet_Epuisette DECIMAL(15,2),
+   PRIMARY KEY(Id_Materiel),
+   FOREIGN KEY(Id_Materiel) REFERENCES MATERIEL(Id_Materiel)
+);
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `LIEU_PECHE`
+--
+
+CREATE TABLE LIEU_PECHE(
+   Id_Lieu_Peche INT,
+   Libelle_Lieu_Peche VARCHAR(50),
+   Id_Type_Eau INT NOT NULL,
+   PRIMARY KEY(Id_Lieu_Peche),
+   FOREIGN KEY(Id_Type_Eau) REFERENCES TYPE_EAU(Id_Type_Eau)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `LIEU_PECHE`
+--
+
+INSERT INTO Lieu_Peche (Id_Lieu_Peche, Libelle_Lieu_Peche ) VALUES
+(1, 'Etang'),
+(2, 'Rivière'),
+(3, 'Mer'),
+(4, 'Océan');
+
+
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `POISSON`
+--
+
+CREATE TABLE POISSON(
+   Id_Poisson INT,
+   Nom_Poisson VARCHAR(50),
+   Taille_Poisson VARCHAR(30),
+    Periode VARCHAR(50),
+   PRIMARY KEY(Id_Poisson)
+
+);
+
+--
+-- Contenu de la table `POISSON`
+--
+
+INSERT INTO Poisson (Id_Poisson, Nom_Poisson, Taille_Poisson,Periode,chemin) VALUES
+(1,'Carpe', 'Moyen', 'En toute période', 'Carpe'),
+(2, 'Tétard', 'Minuscule', 'Mars-juillet', 'Tetard'),
+(3, 'Perche jaune', 'Petite/Moyenne', 'Octobre-mars','Perche jaune'),
+
+(4,'Poisson-Ruban', 'Enorme', 'Décembre-mai', 'Poisson-Ruban'),
+(5,'Marlin bleu', 'Enorme', 'Juillet-septembre, novembre-avril','Marlin bleu'),
+(6,'Carassin', 'Petite', 'En toute période', 'Carassin'),
+(7,'Chevaine', 'Minuscule', 'En toute période','Chevaine');
+
+
+
+CREATE TABLE Vivre(
+   Id_Lieu_Peche INT,
+   Id_Poisson INT,
+   PRIMARY KEY(Id_Lieu_Peche, Id_Poisson),
+   FOREIGN KEY(Id_Lieu_Peche) REFERENCES LIEU_PECHE(Id_Lieu_Peche),
+   FOREIGN KEY(Id_Poisson) REFERENCES POISSON(Id_Poisson)
+);
+
+CREATE TABLE Se_referer(
+   Id_Type_Peche INT,
+   Id_Boutique INT,
+   PRIMARY KEY(Id_Type_Peche, Id_Boutique),
+   FOREIGN KEY(Id_Type_Peche) REFERENCES TYPE_PECHE(Id_Type_Peche),
+   FOREIGN KEY(Id_Boutique) REFERENCES Boutique(Id_Boutique)
+);
+
+CREATE TABLE Utiliser(
+   Id_Poisson INT,
+   Id_Type_Peche INT,
+   PRIMARY KEY(Id_Poisson, Id_Type_Peche),
+   FOREIGN KEY(Id_Poisson) REFERENCES POISSON(Id_Poisson),
+   FOREIGN KEY(Id_Type_Peche) REFERENCES TYPE_PECHE(Id_Type_Peche)
+);
+
+CREATE TABLE Utiliser2(
+   Id_Type_Peche INT,
+   Id_Materiel INT,
+   PRIMARY KEY(Id_Type_Peche, Id_Materiel),
+   FOREIGN KEY(Id_Type_Peche) REFERENCES TYPE_PECHE(Id_Type_Peche),
+   FOREIGN KEY(Id_Materiel) REFERENCES MATERIEL(Id_Materiel)
+);
+
+
+-- --------------------------------------------------------
+
+--
+-- Structure de la table `photo`
+--
+
+
+CREATE TABLE PHOTO(
+   Id_Photo VARCHAR(50),
+   Description_Photo VARCHAR(50),
+   PRIMARY KEY(Id_Photo)
+)ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Contenu de la table `photo`
+--
+
+
+INSERT INTO `photo` (`idPhoto`, `cheminP`, `idPoisson`) VALUES
+(0, 'entrepote.jpg', 1),
+(2, 'sapporo.jpg', 3),
+(3, 'entrepote.jpg', 1),
+(4, 'barDuCharcutier.jpg', 2),
+(6, 'cidrerieDuFronton.jpg', 4),
+(7, 'agadir.jpg', 5),
+(8, 'leBistrotSainteCluque.jpg', 6),
+(9, 'auberge.jpg', 7),
+(10, 'laTableDePottoka.jpg', 8),
+(11, 'rotisserieDuRoyLeon.jpg', 9),
+(12, 'barDuMarche.jpg', 10),
+(13, 'trinquetModerne.jpg', 11),
+(14, 'cidrerieDuFronton2.jpg', 4),
+(15, 'cidrerieDuFronton3.jpg', 4);
+
